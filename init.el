@@ -29,6 +29,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
+     osx
      ;; better-defaults
      emacs-lisp
      wilber
@@ -294,6 +295,22 @@ you should place your code here."
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 2)
   (setq-default standard-indent 2)
+
+  ;; Mouse scroll
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  (defun scroll-up-5-lines ()
+    "Scroll up 5 lines"
+    (interactive)
+    (scroll-up 5))
+
+  (defun scroll-down-5-lines ()
+    "Scroll down 5 lines"
+    (interactive)
+    (scroll-down 5))
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-5-lines)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-5-lines)
+
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -305,7 +322,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (enh-ruby-mode smeargle orgit magit-gitflow helm-gitignore request gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger evil-magit magit magit-popup helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl web-mode web-beautify tern tagedit slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv projectile-rails rake inflections f less-css-mode json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc jade-mode helm-css-scss haml-mode feature-mode emmet-mode coffee-mode chruby bundler inf-ruby monokai-theme darktooth-theme ample-theme s powerline hydra spinner parent-mode projectile pkg-info epl flx smartparens iedit anzu highlight packed dash helm avy helm-core popup async package-build bind-key bind-map evil evil-tabs elscreen ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (reveal-in-osx-finder pbcopy osx-trash launchctl enh-ruby-mode smeargle orgit magit-gitflow helm-gitignore request gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger evil-magit magit magit-popup helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl web-mode web-beautify tern tagedit slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv projectile-rails rake inflections f less-css-mode json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc jade-mode helm-css-scss haml-mode feature-mode emmet-mode coffee-mode chruby bundler inf-ruby monokai-theme darktooth-theme ample-theme s powerline hydra spinner parent-mode projectile pkg-info epl flx smartparens iedit anzu highlight packed dash helm avy helm-core popup async package-build bind-key bind-map evil evil-tabs elscreen ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
