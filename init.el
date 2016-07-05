@@ -266,7 +266,7 @@ you should place your code here."
   (require 'evil)
   (evil-mode)
   ;;Evil multi cursor
-  ;; (global-evil-mc-mode)
+  (global-evil-mc-mode)
   ;;Neo tree
   (require 'neotree)
   (global-set-key [f8] 'neotree-toggle)

@@ -2,7 +2,11 @@
   '(
     helm-ag
     evil-nerd-commenter
+    evil-multiedit
+    ;; To enable it add `(global-evil-mc-mode)' to user-config function
+    evil-mc
     ))
+
 
 (defun wilber/init-helm-ag ()
   (use-package helm-ag
@@ -371,3 +375,23 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "cy" 'spacemacs/copy-and-comment-lines
         "cY" 'spacemacs/copy-and-comment-lines-inverse))))
 
+
+;; (defun wilber/init-evil-multiedit ()
+;;   (use-package evil-multiedit
+;;     :init
+;;     (require 'evil-multiedit)
+;;     (evil-multiedit-default-keybinds)
+;;     ;; (define-key key-translation-map (kbd "C-n") (kbd ""))
+;;     ;; (define-key key-translation-map (kbd "C-p") (kbd ""))
+;;     ;; (define-key evil-normal-state-map "\C-n" 'evil-multiedit-next)
+;;     ;; (define-key evil-normal-state-map "\C-p" 'evil-multiedit-prev)
+;;     ;; (define-key evil-multiedit-state-map (kbd "C-n") 'evil-multiedit-next)
+;;     ;; (define-key evil-multiedit-state-map (kbd "C-p") 'evil-multiedit-prev)
+;;     (define-key evil-normal-state-map (kbd "C-n") 'evil-multiedit-match-symbol-and-next)
+;;     (define-key evil-visual-state-map (kbd "C-p") 'evil-multiedit-match-and-next)
+;;   )
+;; )
+
+(defun wilber/init-evil-mc ()
+  (use-package evil-mc
+    :defer t))
