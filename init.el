@@ -38,6 +38,7 @@ values."
      (ruby :variables ruby-enable-enh-ruby-mode t)
      ruby-on-rails
      javascript
+     yaml
      (git :variables
           git-magit-status-fullscreen t)
      ;; git
@@ -298,23 +299,63 @@ you should place your code here."
   (setq-default tab-width 2)
   (setq-default standard-indent 2)
 
+  ;; Delete without clipboard
+  (define-key evil-visual-state-map "X" 'delete-region)
+
+  ;; these are important for copy-pasting from ms word
+  ;; set up unicode
+  ;; keyboard/input method settings
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (set-language-environment 'UTF-8) ; prefer utf-8 for language settings
+  (set-default-coding-systems 'utf-8)
+  (setq-default buffer-file-coding-system 'utf-8)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+  (prefer-coding-system 'utf-8)
+  (setq buffer-file-coding-system 'utf-8-mac)
+  (setq default-file-name-coding-system 'utf-8-mac)
+  (setq default-keyboard-coding-system 'utf-8-mac)
+  (setq default-process-coding-system '(utf-8-mac . utf-8-mac))
+  (setq default-sendmail-coding-system 'utf-8-mac)
+  (setq default-terminal-coding-system 'utf-8-mac)
+  (setenv "LANG" "en_US.UTF-8")
+
   ;; Mouse scroll
   (require 'mouse)
   (xterm-mouse-mode t)
   (defun scroll-up-5-lines ()
     "Scroll up 5 lines"
     (interactive)
-    (scroll-up 5))
+    (cl-loop repeat 5 do
+      (scroll-up 1)
+      (sit-for 0.05)
+    )
+  )
 
   (defun scroll-down-5-lines ()
     "Scroll down 5 lines"
     (interactive)
-    (scroll-down 5))
+    (cl-loop repeat 5 do
+             (scroll-down 1)
+             (sit-for 0.05)
+    )
+    (message "hello world %s" (evil-scroll-count))
+  )
   (global-set-key (kbd "<mouse-4>") 'scroll-down-5-lines)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-5-lines)
 
   (define-key evil-normal-state-map "D" 'scroll-up-5-lines)
   (define-key evil-normal-state-map "U" 'scroll-down-5-lines)
+
+  ;; (define-key global-map (kbd "<down-j>")
+  ;;   ;; (lambda (event)
+  ;;   (lambda ()
+  ;;     ;; (interactive "e")
+  ;;     (interactive)
+  ;;     ;; (message "hello world %s" event)))
+  ;;     (message "hello world")))
 
 )
 
@@ -327,7 +368,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-multiedit reveal-in-osx-finder pbcopy osx-trash launchctl enh-ruby-mode smeargle orgit magit-gitflow helm-gitignore request gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger evil-magit magit magit-popup helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl web-mode web-beautify tern tagedit slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv projectile-rails rake inflections f less-css-mode json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc jade-mode helm-css-scss haml-mode feature-mode emmet-mode coffee-mode chruby bundler inf-ruby monokai-theme darktooth-theme ample-theme s powerline hydra spinner parent-mode projectile pkg-info epl flx smartparens iedit anzu highlight packed dash helm avy helm-core popup async package-build bind-key bind-map evil evil-tabs elscreen ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (yaml-mode evil-multiedit reveal-in-osx-finder pbcopy osx-trash launchctl enh-ruby-mode smeargle orgit magit-gitflow helm-gitignore request gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger evil-magit magit magit-popup helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-quickhelp pos-tip company auto-yasnippet ac-ispell auto-complete git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter diff-hl web-mode web-beautify tern tagedit slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv projectile-rails rake inflections f less-css-mode json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc jade-mode helm-css-scss haml-mode feature-mode emmet-mode coffee-mode chruby bundler inf-ruby monokai-theme darktooth-theme ample-theme s powerline hydra spinner parent-mode projectile pkg-info epl flx smartparens iedit anzu highlight packed dash helm avy helm-core popup async package-build bind-key bind-map evil evil-tabs elscreen ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
