@@ -9,3 +9,9 @@
 ## Install dotfiles
     git clone git@github.com:dangnm/spacemacs-dotfiles.git
     mv spacemacs-dotfiles ~/.spacemacs.d
+## Setup Spacemacs
+    cd ~/.spacemacs.d/
+    sh spacemacs.sh
+## Restore default emacs (optional)
+    cd ~/.spacemacs.d/
+    sh default.sh
