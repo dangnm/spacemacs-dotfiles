@@ -292,6 +292,8 @@ you should place your code here."
                  "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
                  (lambda (arg) (enh-ruby-end-of-block)) nil))
 
+  (global-linum-mode) ; Show line numbers by default
+
   ;; ruby indentation settings
   (setq enh-ruby-bounce-deep-indent t)
   (setq enh-ruby-hanging-brace-indent-level 2)
