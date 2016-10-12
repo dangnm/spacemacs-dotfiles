@@ -48,6 +48,8 @@ values."
      ruby-on-rails
      javascript
      yaml
+     (git :variables
+	  git-magit-status-fullscreen t)
 
      ;; git
      ;; markdown
@@ -57,7 +59,7 @@ values."
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
-     ;; version-control
+     version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -396,6 +398,10 @@ you should place your code here."
 
   (define-key evil-normal-state-map "D" 'scroll-up-5-lines)
   (define-key evil-normal-state-map "U" 'scroll-down-5-lines)
+
+  ;;Workaround  https://github.com/justbur/emacs-which-key/issues/146
+  (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
+
 
   ;; (define-key global-map (kbd "<down-j>")
   ;;   ;; (lambda (event)
