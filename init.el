@@ -44,7 +44,7 @@ values."
      wilber
      html
      ruby 
-     (ruby :variables ruby-enable-enh-ruby-mode t)
+     ;; (ruby :variables ruby-enable-enh-ruby-mode t)
      ruby-on-rails
      javascript
      yaml
