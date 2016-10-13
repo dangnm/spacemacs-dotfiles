@@ -364,12 +364,13 @@ you should place your code here."
   (setq-default buffer-file-coding-system 'utf-8)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
   (prefer-coding-system 'utf-8)
-  (setq buffer-file-coding-system 'utf-8-mac)
+  ;; (setq buffer-file-coding-system 'utf-8-mac)
   (setq default-file-name-coding-system 'utf-8-mac)
   (setq default-keyboard-coding-system 'utf-8-mac)
   (setq default-process-coding-system '(utf-8-mac . utf-8-mac))
   (setq default-sendmail-coding-system 'utf-8-mac)
   (setq default-terminal-coding-system 'utf-8-mac)
+
   (setenv "LANG" "en_US.UTF-8")
 
   ;; Mouse scroll
