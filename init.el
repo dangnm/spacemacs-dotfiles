@@ -45,7 +45,7 @@ values."
      wilber
      html
      ruby 
-     ;; (ruby :variables ruby-enable-enh-ruby-mode t)
+     (ruby :variables ruby-enable-enh-ruby-mode t)
      ruby-on-rails
      javascript
      react
@@ -369,7 +369,7 @@ you should place your code here."
   ;; (setq buffer-file-coding-system 'utf-8-mac)
   (setq default-file-name-coding-system 'utf-8-mac)
   (setq default-keyboard-coding-system 'utf-8-mac)
-  (setq default-process-coding-system '(utf-8-mac . utf-8-mac))
+  ;; (setq default-process-coding-system 'utf-8-mac)
   (setq default-sendmail-coding-system 'utf-8-mac)
   (setq default-terminal-coding-system 'utf-8-mac)
 
