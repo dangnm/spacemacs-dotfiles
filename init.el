@@ -264,7 +264,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -343,7 +343,11 @@ you should place your code here."
                  "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
                  (lambda (arg) (enh-ruby-end-of-block)) nil))
 
-  (global-linum-mode) ; Show line numbers by default
+  ;; Fix dotspacemacs-line-numbers confict with relative flag
+  (setq-default
+   linum-format "%4d \u2502"
+   linum-relative-format "%4s \u2502"
+   )
 
   ;; ruby indentation settings
   (setq enh-ruby-bounce-deep-indent t)
@@ -425,7 +429,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (vimrc-mode dactyl-mode flycheck-pos-tip pos-tip flycheck mmm-mode markdown-toc markdown-mode gh-md rake inflections skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode helm-css-scss helm-company helm-c-yasnippet haml-mode web-completion-data dash-functional tern company inf-ruby yasnippet auto-complete helm helm-core ws-butler window-numbering volatile-highlights vi-tilde-fringe uuidgen toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode paradox spinner org-plus-contrib org-bullets open-junk-file move-text lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu eval-sexp-fu highlight dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-link ace-jump-helm-line yaml-mode which-key web-mode web-beautify use-package tagedit spacemacs-theme smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder rbenv quelpa pug-mode projectile-rails pbcopy osx-trash osx-dictionary orgit neotree monokai-theme magit-gitflow macrostep livid-mode less-css-mode launchctl json-mode js2-refactor js-doc hydra help-fns+ helm-ag gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ feature-mode exec-path-from-shell evil-visualstar evil-tabs evil-nerd-commenter evil-mc evil-magit evil-escape enh-ruby-mode emmet-mode elisp-slime-nav diff-hl company-web company-tern company-statistics coffee-mode chruby bundler bind-map auto-yasnippet auto-compile ace-window ac-ispell))))
+    (winum pcre2el minitest hide-comnt projectile helm-gitignore fringe-helper git-gutter+ git-gutter fuzzy pkg-info epl magit magit-popup git-commit with-editor evil goto-chg undo-tree f diminish s bind-key packed dash avy async popup vimrc-mode dactyl-mode flycheck-pos-tip pos-tip flycheck mmm-mode markdown-toc markdown-mode gh-md rake inflections skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode helm-css-scss helm-company helm-c-yasnippet haml-mode web-completion-data dash-functional tern company inf-ruby yasnippet auto-complete helm helm-core ws-butler window-numbering volatile-highlights vi-tilde-fringe uuidgen toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode paradox spinner org-plus-contrib org-bullets open-junk-file move-text lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu eval-sexp-fu highlight dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-link ace-jump-helm-line yaml-mode which-key web-mode web-beautify use-package tagedit spacemacs-theme smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder rbenv quelpa pug-mode projectile-rails pbcopy osx-trash osx-dictionary orgit neotree monokai-theme magit-gitflow macrostep livid-mode less-css-mode launchctl json-mode js2-refactor js-doc hydra help-fns+ helm-ag gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ feature-mode exec-path-from-shell evil-visualstar evil-tabs evil-nerd-commenter evil-mc evil-magit evil-escape enh-ruby-mode emmet-mode elisp-slime-nav diff-hl company-web company-tern company-statistics coffee-mode chruby bundler bind-map auto-yasnippet auto-compile ace-window ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
