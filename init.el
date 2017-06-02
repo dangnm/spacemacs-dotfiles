@@ -31,8 +31,8 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     vimscript
-     markdown
+     ruby
+     ruby-on-rails
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -43,26 +43,20 @@ values."
      osx
      ;; better-defaults
      emacs-lisp
-     wilber
+     git
+     markdown
+     vimscript
      html
-     ruby 
-     (ruby :variables ruby-enable-enh-ruby-mode t)
-     ruby-on-rails
      javascript
      react
      yaml
-     (git :variables
-	  git-magit-status-fullscreen t)
-
-     ;; git
-     ;; markdown
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
-     version-control
+      syntax-checking
+      version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -129,11 +123,10 @@ values."
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
-   ;; Example for 5 recent files and 7 projects: '((recents . 5) (projects . 7))
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   ;; (default nil)
-   dotspacemacs-startup-lists '()
+   dotspacemacs-startup-lists '((recents . 5)
+                                (projects . 7))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -166,7 +159,7 @@ values."
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m)
+   ;; (default "C-M-m")
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs C-i, TAB and C-m, RET.
@@ -261,8 +254,18 @@ values."
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
-   ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
-   ;; derivatives. If set to `relative', also turns on relative line numbers.
+   ;; Control line numbers activation.
+   ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
+   ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
+   ;; This variable can also be set to a property list for finer control:
+   ;; '(:relative nil
+   ;;   :disabled-for-modes dired-mode
+   ;;                       doc-view-mode
+   ;;                       markdown-mode
+   ;;                       org-mode
+   ;;                       pdf-view-mode
+   ;;                       text-mode
+   ;;   :size-limit-kb 1000)
    ;; (default nil)
    dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
@@ -314,28 +317,17 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  
-  (require 'evil)
-  (evil-mode)
-  ;;Evil multi cursor
-  (global-evil-mc-mode)
+
   ;;Neo tree
   (require 'neotree)
   (global-set-key [f8] 'neotree-toggle)
-  (add-hook 'neotree-mode-hook
-          (lambda ()
-            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
-  ;;Tab
-  (define-key evil-normal-state-map (kbd "C-c t") (kbd ":tabnew"))
-  ;;(global-evil-tabs-mode t)
-  (setq x-select-enable-clipboard nil)
-  (global-set-key (kbd "C-c y") 'copy-to-clipboard)
-  ;;(load-theme 'monokai t t)
-  ;;(enable-theme 'monokai)
-  (ac-config-default)
+
+  ;; ruby indentation settings
+  (setq enh-ruby-bounce-deep-indent t)
+  (setq enh-ruby-hanging-brace-indent-level 2)
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 2)
+  (setq-default standard-indent 2)
 
   ;; Add basic support for wrapping of ruby code
   (add-to-list 'hs-special-modes-alist
@@ -349,37 +341,6 @@ you should place your code here."
    linum-relative-format "%4s \u2502"
    )
 
-  ;; ruby indentation settings
-  (setq enh-ruby-bounce-deep-indent t)
-  (setq enh-ruby-hanging-brace-indent-level 2)
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 2)
-  (setq-default standard-indent 2)
-
-  ;; Delete without clipboard
-  (define-key evil-visual-state-map "X" 'delete-region)
-
-  ;; these are important for copy-pasting from ms word
-  ;; set up unicode
-  ;; keyboard/input method settings
-  (setq locale-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (set-language-environment 'UTF-8) ; prefer utf-8 for language settings
-  (set-default-coding-systems 'utf-8)
-  (setq-default buffer-file-coding-system 'utf-8)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-  (prefer-coding-system 'utf-8)
-  ;; (setq buffer-file-coding-system 'utf-8-mac)
-  (setq default-file-name-coding-system 'utf-8-mac)
-  (setq default-keyboard-coding-system 'utf-8-mac)
-  ;; (setq default-process-coding-system 'utf-8-mac)
-  (setq default-sendmail-coding-system 'utf-8-mac)
-  (setq default-terminal-coding-system 'utf-8-mac)
-
-  (setenv "LANG" "en_US.UTF-8")
-
   ;; Mouse scroll
   (require 'mouse)
   (xterm-mouse-mode t)
@@ -387,10 +348,10 @@ you should place your code here."
     "Scroll up 5 lines"
     (interactive)
     (cl-loop repeat 5 do
-      (scroll-up 1)
-      (sit-for 0.05)
+             (scroll-up 1)
+             (sit-for 0.05)
+             )
     )
-  )
 
   (defun scroll-down-5-lines ()
     "Scroll down 5 lines"
@@ -398,27 +359,16 @@ you should place your code here."
     (cl-loop repeat 5 do
              (scroll-down 1)
              (sit-for 0.05)
-    )
+             )
     (message "hello world %s" (evil-scroll-count))
-  )
+    )
   (global-set-key (kbd "<mouse-4>") 'scroll-down-5-lines)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-5-lines)
 
   (define-key evil-normal-state-map "D" 'scroll-up-5-lines)
   (define-key evil-normal-state-map "U" 'scroll-down-5-lines)
 
-  ;;Workaround  https://github.com/justbur/emacs-which-key/issues/146
-  ;;(defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
-
-
-  ;; (define-key global-map (kbd "<down-j>")
-  ;;   ;; (lambda (event)
-  ;;   (lambda ()
-  ;;     ;; (interactive "e")
-  ;;     (interactive)
-  ;;     ;; (message "hello world %s" event)))
-  ;;     (message "hello world")))
-)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -429,7 +379,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (winum pcre2el minitest hide-comnt projectile helm-gitignore fringe-helper git-gutter+ git-gutter fuzzy pkg-info epl magit magit-popup git-commit with-editor evil goto-chg undo-tree f diminish s bind-key packed dash avy async popup vimrc-mode dactyl-mode flycheck-pos-tip pos-tip flycheck mmm-mode markdown-toc markdown-mode gh-md rake inflections skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode helm-css-scss helm-company helm-c-yasnippet haml-mode web-completion-data dash-functional tern company inf-ruby yasnippet auto-complete helm helm-core ws-butler window-numbering volatile-highlights vi-tilde-fringe uuidgen toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode paradox spinner org-plus-contrib org-bullets open-junk-file move-text lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu eval-sexp-fu highlight dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-link ace-jump-helm-line yaml-mode which-key web-mode web-beautify use-package tagedit spacemacs-theme smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder rbenv quelpa pug-mode projectile-rails pbcopy osx-trash osx-dictionary orgit neotree monokai-theme magit-gitflow macrostep livid-mode less-css-mode launchctl json-mode js2-refactor js-doc hydra help-fns+ helm-ag gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ feature-mode exec-path-from-shell evil-visualstar evil-tabs evil-nerd-commenter evil-mc evil-magit evil-escape enh-ruby-mode emmet-mode elisp-slime-nav diff-hl company-web company-tern company-statistics coffee-mode chruby bundler bind-map auto-yasnippet auto-compile ace-window ac-ispell))))
+    (inflections markdown-mode skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter pos-tip flycheck magit magit-popup git-commit with-editor web-completion-data dash-functional tern company yasnippet auto-complete rake inf-ruby define-word yaml-mode ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org tagedit spaceline smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv rainbow-delimiters pug-mode projectile-rails popwin persp-mode pbcopy paradox osx-trash osx-dictionary orgit org-bullets open-junk-file neotree move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode launchctl json-mode js2-refactor js-doc info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flycheck-pos-tip flx-ido fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu enh-ruby-mode emmet-mode elisp-slime-nav dumb-jump diff-hl dactyl-mode company-web company-tern company-statistics column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
