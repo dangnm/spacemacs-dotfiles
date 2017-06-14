@@ -5,7 +5,7 @@
     # To get Emacs into Application folder 
     $ brew linkapps
     # Update alias to make homebrew emacs default emacs by adding the following line to .bash_profile
-    alias emacs="/usr/local/Cellar/emacs/HEAD/bin/emacs -nw"
+    alias emacs="/usr/local/Cellar/emacs/HEAD/bin/emacs -nw --insecure"
 ## Install dotfiles
     git clone git@github.com:dangnm/spacemacs-dotfiles.git
     mv spacemacs-dotfiles ~/.spacemacs.d
