@@ -343,6 +343,9 @@ you should place your code here."
    linum-relative-format "%4s \u2502"
    )
 
+  ;;highlight
+  (set-face-attribute 'region nil :background "#5fba7d")
+
   ;;ESC
   (setq-default evil-escape-key-sequence "jk")
   (setq-default evil-escape-delay 0.15)
