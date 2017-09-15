@@ -343,6 +343,9 @@ you should place your code here."
    linum-relative-format "%4s \u2502"
    )
 
+  ;;Fix eslint issue
+  (setq flycheck-xml-parser 'flycheck-parse-xml-region)
+
   ;;highlight
   (set-face-attribute 'region nil :background "#5fba7d")
 
