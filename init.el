@@ -324,6 +324,9 @@ you should place your code here."
   (require 'neotree)
   (global-set-key [f8] 'neotree-toggle)
 
+  ;;Disable auto insert encoding info text
+  (setq ruby-insert-encoding-magic-comment nil)
+
   ;; ruby indentation settings
   (setq enh-ruby-bounce-deep-indent t)
   (setq enh-ruby-hanging-brace-indent-level 2)
