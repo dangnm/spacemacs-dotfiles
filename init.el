@@ -346,6 +346,9 @@ you should place your code here."
    linum-relative-format "%4s \u2502"
    )
 
+  ;;Fix js file indentation
+  (setq-default js-indent-level 2)
+
   ;;Fix eslint issue
   (setq flycheck-xml-parser 'flycheck-parse-xml-region)
 
