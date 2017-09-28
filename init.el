@@ -41,7 +41,6 @@ values."
      helm
      (auto-completion :variables
                       auto-completion-return-key-behavior nil
-                      auto-completion-tab-key-behavior 'complete
                       )
      osx
      ;; better-defaults
@@ -357,6 +356,11 @@ you should place your code here."
 
   ;;highlight
   (set-face-attribute 'region nil :background "#5fba7d")
+
+  ;;Auto-completion complete key mapping
+  (add-hook 'company-mode-hook
+            (lambda()
+              (global-set-key (kbd "C-c y") 'company-complete)))
 
   ;;ESC
   (setq-default evil-escape-key-sequence "jk")
