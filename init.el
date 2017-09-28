@@ -360,7 +360,7 @@ you should place your code here."
   ;;Auto-completion complete key mapping
   (add-hook 'company-mode-hook
             (lambda()
-              (global-set-key (kbd "C-c y") 'company-complete)))
+              (define-key company-active-map (kbd "C-f") 'company-complete-selection)))
 
   ;;ESC
   (setq-default evil-escape-key-sequence "jk")
