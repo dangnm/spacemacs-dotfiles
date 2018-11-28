@@ -19,3 +19,21 @@
 ## Restore default emacs (optional)
     cd ~/.spacemacs.d/
     sh default.sh
+## Run spacemacs in 0.1s
+Add this code to .zshenv and run emacs by typing "em"
+
+```
+  em() {
+      if [[ $(ps aux | grep -w "emacs --daemon" | grep -v grep | wc -l) = *1* ]]; then
+          echo "daemon is running"
+      else
+          echo "daemon is starting"
+          emacs --daemon
+      fi
+  
+      emacsclient -create-frame --alternate-editor="" "$@"
+  }
+```
+
+
+
