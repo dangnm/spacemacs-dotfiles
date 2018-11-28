@@ -24,14 +24,22 @@ Add this code to .zshenv and run emacs by typing "em"
 
 ```
   em() {
-      if [[ $(ps aux | grep -w "emacs --daemon" | grep -v grep | wc -l) = *1* ]]; then
-          echo "daemon is running"
-      else
-          echo "daemon is starting"
-          emacs --daemon
-      fi
-  
-      emacsclient -create-frame --alternate-editor="" "$@"
+    if [[ $(ps aux | grep -w "emacs --daemon" | grep -v grep | wc -l) -gt 0 ]]; then
+        echo "daemon is running"
+        if [[ $(ps aux | grep -w "emacs --daemon" | grep -v grep | wc -l) -gt 1 ]]; then
+            kill -9 $(ps aux | grep 'emacs --daemon' | grep -v 'grep' | awk '{print $2}')
+            emacs --daemon
+        fi
+    else
+        echo "daemon is starting"
+        emacs --daemon
+    fi
+
+    if [[ "$@" == "" ]]; then
+        emacsclient -create-frame --alternate-editor="" .
+    else
+        emacsclient -create-frame --alternate-editor="" "$@"
+    fi
   }
 ```
 
