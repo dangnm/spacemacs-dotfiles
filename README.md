@@ -23,6 +23,7 @@
 Add this code to .zshenv and run emacs by typing "em"
 
 ```
+  unalias em >/dev/null 2>&1
   em() {
     if [[ $(ps aux | grep -w "emacs --daemon" | grep -v grep | wc -l) -gt 0 ]]; then
         echo "daemon is running"
