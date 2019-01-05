@@ -328,6 +328,14 @@ you should place your code here."
   (require 'neotree)
   (global-set-key [f8] 'neotree-toggle)
 
+  ;;Folding
+  (defun toggle-selective-display (column)
+    (interactive "P")
+    (set-selective-display
+      (or column
+          (unless selective-display
+            (1+ (current-column))))))
+
   ;;Disable auto insert encoding info text
   (setq ruby-insert-encoding-magic-comment nil)
 
