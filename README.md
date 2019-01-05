@@ -8,17 +8,31 @@
     alias emacs="/usr/local/Cellar/emacs/HEAD/bin/emacs -nw --insecure"
 ## Install ag search
     brew install ag
-## Install spacemacs 0.200.9
-    link https://github.com/syl20bnr/spacemacs/releases
+## Install spacemacs 0.200.13
+    git clone -b 'v0.200.13' --single-branch --depth 1  https://github.com/syl20bnr/spacemacs.git
 ## Install dotfiles
     git clone git@github.com:dangnm/spacemacs-dotfiles.git
     mv spacemacs-dotfiles ~/.spacemacs.d
 ## Setup Spacemacs
-    cd ~/.spacemacs.d/
-    sh spacemacs.sh
+    Run sh ~/.spacemacs.d/link.sh to toggle
+    OR 
+    ln -sf ~/spacemacs/assets ~/.emacs.d/assets
+    ln -sf ~/spacemacs/core ~/.emacs.d/core
+    ln -sf ~/spacemacs/init.el ~/.emacs.d/init.el
+    ln -sf ~/spacemacs/layers ~/.emacs.d/layers
+    ln -sf ~/spacemacs/private ~/.emacs.d/private
+    ln -sf ~/spacemacs/spacemacs.mk ~/.emacs.d/spacemacs.mk
+
 ## Restore default emacs (optional)
-    cd ~/.spacemacs.d/
-    sh default.sh
+    Run sh ~/.spacemacs.d/link.sh to toggle
+    OR 
+    unlink ~/.emacs.d/assets
+    unlink ~/.emacs.d/core
+    unlink ~/.emacs.d/init.el
+    unlink ~/.emacs.d/layers
+    unlink ~/.emacs.d/private
+    unlink ~/.emacs.d/spacemacs.mk
+
 ## Run spacemacs in 0.1s
 Add this code to .zshenv and run emacs by typing "em"
 
